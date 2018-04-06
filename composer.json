@@ -1,0 +1,29 @@
+{
+    "name": "thalyson/API-RESTful-cadtreesa",
+    "description": "API RESTful for Cadtreesa Project",
+    "require": {
+        "firebase/php-jwt": "^5.0",
+        "respect/validation": "^1.1",
+        "phpmailer/phpmailer": "^6.0",
+        "respect/rest": "^0.6.0"
+    },
+    "require-dev": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "Cadtreesa\\": "src/app"
+        },
+        "files": [
+            "src/app/functions/helpers.php"
+        ]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thalyson Rodrigues",
+            "email": "tha.motog@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

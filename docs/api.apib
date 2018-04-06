@@ -1,0 +1,583 @@
+FORMAT: 1A
+HOST: http://localhost:4000/v1
+
+# Cadtreesa API
+
+API do projeto Cadtreesa (Cadastro de Árvores de Sistemas & Agrícolas), projeto realizado durante a disciplina de Conceitos de Linaguagens de Programação ministrada pelo professor Lauro Ricardo do curso de Sistemas de Informação da Universidade Federal de Mato Grosso, Campus Universitário de Rondonópolis. API realizada para prover dados a aplicação android e a página web do projeto.
+
+# Group API-REST-Cadtreesa
+
+## Sobre [/]
+
+API construida com respostas em formato JSON (JavaScript Object Notation) utilizando os métodos de requisição do protocolo HTTP, sendo POST, GET, PUT e DELETE com autorização Bearer Token com JWT.
+
+## Group Usuários
+
+## Users [/users/login]
+
+### Login de usuário [POST]
+
++ Request Fazer login
+
+	+ Headers
+
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (UsersLogin)
+
++ Response 200 (application/json)
+	+ Headers
+
+		Authorization: Bearer JWT
+	+ Attributes(LoginJWT)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/logout]
+
+### Logout de usuário [POST]
+
++ Request Fazer logout
+
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Response 204
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/forgot_password]
+
+### Solicitar recuperação de senha [POST]
+
++ Request Solicitar recuperação
+	+ Headers
+
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (Username)
+
++ Response 202 (application/json)
+	+ Attributes (Error)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/change_password]
+
+### Alterar senha [POST]
+
++ Request Alterar senha
+	+ Headers
+
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (Password)
+
++ Response 204
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users]
+
+### Criar usuários [POST]
+
++ Request Criar um novo usuário
+
+	+ Headers
+
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (UsersPost)
+
++ Response 201 (application/json)
+	+ Headers
+		Content-Location: /v1/users/1
+	+ Attributes (Created)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+### Listar todos usuários [GET]
+
++ Request Listar dados de todos usuários
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Parameters
+	+ extends (string, optional)
+		Extender dados na consulta
+		+ Members
+			+ users
+	+ order (enum[string], optional)
+		Ordem dos resultados
+		+ Members
+			+ id
+			+ name
+			+ created
+	+ limit (number, optional) - Limite de registros
+	+ offset (number, optional) - Passo do registro. Requer limit
+
+
++ Response 200 (application/json)
+	+ Attributes (MetadataUsers)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/{id}/trees]
+
+### Listar árvores por usuário [GET]
+
++ Request Listar dados de árvores por usuários
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Parameters
+	+ extends (string, optional)
+		Extender dados na consulta
+		+ Members
+			+ users
+	+ order (enum[string], optional)
+		Ordem dos resultados
+		+ Members
+			+ id
+			+ name
+			+ specie
+			+ created
+	+ limit (number, optional) - Limite de registros
+	+ offset (number, optional) - Passo do registro. Requer limit
+
++ Response 200 (application/json)
+	+ Attributes (MetadataTreesByUser)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/{id}/trees/{id}]
+
+### Listar uma árvore por usuário [GET]
+
++ Request Listar dados de árvores por usuários
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Response 200 (application/json)
+	+ Attributes (MetadataFather)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/{id}]
+
+### Listar usuário [GET]
+
++ Request Listar dados de um usuário
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Parameters
+	+ id: 1 (number, required) - ID do usuário
+	+ extends (string, optional)
+		Extender dados na consulta
+		+ Members
+			+ trees
+
++ Response 200 (application/json)
+	+ Attributes (UsersGet)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+### Editar usuário [PUT]
+
++ Request Editar dados de um usuário
+	+ Headers
+		
+		Authorization: Bearer JWT
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes(UsersPost)
+
++ Parameters
+	+ id: 1 (number, required) - ID do usuário
+
++ Response 200 (application/json)
+	+ Attributes (Id)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+### Remover usuário [DELETE]
+
++ Request Remover usuário
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Parameters
+	+ id: 1 (number, required) - ID do usuário
+
++ Response 204 (application/json)
+	+ Headers
+
+		Entity: 1
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Group Árvores
+
+## Trees [/trees]
+
+### Criar árvores [POST]
+
++ Request Criar uma nova árvore
+
+	+ Headers
+
+		Authorization: Bearer JWT
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (TreesPost)
+
++ Response 201 (application/json)
+	+ Headers
+		Content-Location: /v1/users/1
+	+ Attributes (Created)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+### Listar todas as árvores [GET]
+
++ Request Listar dados de todas árvores
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Parameters
+	+ extends (string, optional)
+		Extender dados na consulta
+		+ Members
+			+ users
+	+ order (enum[string], optional)
+		Ordem dos resultados
+		+ Members
+			+ id
+			+ name
+			+ specie
+			+ created
+	+ limit (number, optional) - Limite de registros
+	+ offset (number, optional) - Passo do registro. Requer limit
+
++ Response 200 (application/json)
+	+ Attributes (MetadataTrees)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Trees [/trees/{id}]
+
+### Listar árvore [GET]
+
++ Request Listar dados de uma árvore
+
++ Parameters
+	+ id: 1 (number, required) - ID da árvore
+	+ extends (string, optional)
+		Extender dados na consulta
+		+ Members
+			+ users
+
++ Response 200 (application/json)
+	+ Attributes (TreesGet)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+### Editar árvore [PUT]
+
++ Request Editar dados de uma árvore
+	+ Headers
+		
+		Authorization: Bearer JWT
+		Accept: application/json
+		Content-Type: application/json
+
++ Parameters
+	+ id: 1 (number, required) - ID da árvore
+
++ Response 200 (application/json)
+	+ Attributes (Id)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+### Remover árvore [DELETE]
+
++ Request Remover árvore
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Parameters
+	+ id: 1 (number, required) - ID da árvore
+
++ Response 204 (application/json)
+	+ Headers
+
+		Entity: 1
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Group E-mails
+
+## E-mails [/mail]
+
+### Enviar e-mail [POST]
+	
++ Request Enviar mensagem por email
+	+ Headers
+
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (Email)
+
++ Response 200 (application/json)
+	+ Attributes (Error)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+
+
+# Data Structures
+
+## UsersPost (object)
+
++ name (string) - Nome do usuário completo
++ rgacpf (string) - RGA de matrícula ou CPF caso professor
++ email (string) - Endereço de e-mail válido
++ password (string) - Senha do usuário
+
+## UsersGet (object)
+
++ id (number) - Id do usuário
++ name (string) - Nome do usuário completo
++ rgacpf (string) - RGA de matrícula ou CPF caso professor
++ email (string) - Endereço de e-mail válido
++ password (string) - Senha do usuário
++ hash (string) - Hash de criação do usuário
++ type (string) - Tipo do usuário
++ status (string) - Estado atual do usuário
++ created (string) - Data de criação do usuário
+
+## TreesPost (object)
+
++ name (string) - Nome da árvore
++ specie (string) - Espécie na classificação ciêntifica
++ family (string) - Família da espécie
++ cap (string) - Circunferência da altura do peito
++ height (string) - Altura total da árvore
++ classcup (enum) - Classe da copa (ample, mediana, curta)
++ sanity (string) - Sanidade da árvore (boa, média, ruim)
++ growth (string) - Crescimento da árvore (lento, devagar, rápido)
++ sociological (string) - Posição sociológica (emergente, superior, médio, inferior, isolada)
++ utilization (string) - Utilização da árvore no meio que atua
++ features (string) - Características principais
++ image (string) - Imagem da árvore
++ latitude (number) - Latitude da localização da árvore
++ longitude (number) - Longitude da localização da árvore
+
+## TreesGet (object)
+
++ id (number) - Id da árvore
++ name (string) - Nome da árvore
++ specie (string) - Espécie na classificação ciêntifica
++ family (string) - Família da espécie
++ cap (string) - Circunferência da altura do peito
++ height (string) - Altura total da árvore
++ classcup (enum) - Classe da copa (ample, mediana, curta)
++ sanity (string) - Sanidade da árvore (boa, média, ruim)
++ growth (string) - Crescimento da árvore (lento, devagar, rápido)
++ sociological (string) - Posição sociológica (emergente, superior, médio, inferior, isolada)
++ utilization (string) - Utilização da árvore no meio que atua
++ features (string) - Características principais
++ image (string) - Imagem da árvore
++ latitude (number) - Latitude da localização da árvore
++ longitude (number) - Longitude da localização da árvore
++ created (string) - Data de criação
++ validated (boolean) - Status da árvore (1 validada, 0 não validada)
+
+
+## Metadata (object)
+
++ metadata (object)
+	+ count (number) - Quantidade de registros retornados
+	+ offset (number) - Inicio da leitura
+	+ limit (number) - Maximo de registros
+	+ size (number) - Quantidade total de registros
+
+## MetadataUsers (Metadata)
+
++ results (array[UsersGet])
+
+## MetadataTrees (Metadata)
+
++ results (array[TreesGet])
+
+## MetadataUser (Metadata)
+
++ results (UsersGet)
+
+## MetadataTree (Metadata)
+
++ results (TreesGet)
+
+
+## UsersLogin (object)
+
++ email (string) - Endereço de e-mail válido
++ password (string) - Senha do usuário
+
+## Email (object)
+
++ name (string) - Nome do remetente
++ email (string) - Email válido do remetente
++ subject (string) - Assunto da mensagem
++ message (string) - Mensagem
+
+
+## Created (object)
++ id (number) - Id gerado
+
+## Id (object)
++ id (number) - Id a ser processado
+
+## Error (object)
++ code (number) - Status code
++ message (string) - Mensagem do status
++ description (string) - Descrição do status
+
+## ErrorField (object)
+
++ code (number) - Código do erro
++ field (string) - Campo do erro
++ message (string) - Mensagem do erro
+
+## LogErrors (object)
+
++ code (number) - Código do erro
++ message (string) - Mensagem do erro
++ errors (array[ErrorField])
+
+## LoginJWT (object)
+
++ login (boolean) - Logado
++ access_token (string) - JWT
+
+## Username
+
++ email (string) - Email válido
+
+## Password
+
+- password (string) - Senha com o minimo de 5 caracteres
+
+## MetadataWithFather (Metadata)
+
++ metadata (object)
+	+ count (number) - Quantidade de registros retornados
+	+ offset (number) - Inicio da leitura
+	+ limit (number) - Maximo de registros
+	+ size (number) - Quantidade total de registros
+	+ father (string) - link da entidade pai
+
+## MetadataTreesByUser (MetadataWithFather)
+
++ results (array[TreesGet])
+
+## MetadataFather (object)
+
++ metadata (object)
+	+ father (string) - link da entidade pai
++ results (TreesGet)
