@@ -1,0 +1,11 @@
+sudo: false
+
+language: php
+
+php:
+  - 7.0.4
+  - 7.1.9
+  - 7.2.3
+
+install:
+  - composer install
