@@ -31,5 +31,5 @@ class Put implements Routable
 			return Tree::alter($data, $id);
 
 		return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);        
-    }
+	}
 }

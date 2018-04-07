@@ -9,7 +9,6 @@
  * @package Controllers\User\Post
  */
 
-
 namespace Cadtreesa\Controllers\User\Post;
 
 
@@ -35,7 +34,7 @@ class PostLogin implements Routable
             $auth = (object) Login::login($data->email, $data->password);
 
             if ($auth->auth) {
-                
+
                 $token = Auth::createToken([
                     "id"   => $auth->data["id"],
                     "name" => $auth->data["name"],
@@ -45,7 +44,7 @@ class PostLogin implements Routable
                 ]);
 
                 Response::Authorization($token);
-                
+
                 return Response::json(200, "OK", [
                     "login" => true,
                     "access_token" => $token

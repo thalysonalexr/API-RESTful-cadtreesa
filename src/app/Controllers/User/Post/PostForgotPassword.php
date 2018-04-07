@@ -11,6 +11,7 @@
 
 namespace Cadtreesa\Controllers\User\Post;
 
+
 use Cadtreesa\classes\Auth;
 use Cadtreesa\classes\Database;
 use Cadtreesa\classes\Json;
@@ -21,8 +22,11 @@ use Cadtreesa\Models\DAO\User;
 use Cadtreesa\Validation\EmailValidator;
 use Respect\Rest\Routable;
 
-class PostForgotPassword implements Routable {
-	public function post() {
+
+class PostForgotPassword implements Routable
+{
+	public function post()
+	{
 		$data = Json::verify();
 		$validate = (object) EmailValidator::validate($data);
 
@@ -30,13 +34,11 @@ class PostForgotPassword implements Routable {
 
 			$r = Database::find('USERS', 'email', $data->email);
 
-			if (!$r->success) {
+			if (!$r->success)
 				return Response::json(500, m::get('*', 500, 'error_send'));
-			}
 
-			if (!$r->data) {
+			if (!$r->data)
 				return Response::json(404, m::get('get', 404));
-			}
 
 			$user = $r->data;
 
@@ -52,13 +54,13 @@ class PostForgotPassword implements Routable {
 			];
 
 			if (Mail::send($data->email,
-				[
-					"from" => $r->data->name,
-					"to" => APP_ENVIRONMENT["MAIL"]["MAIL_TO"],
-					"subject" => 'New password for Login in Cadtreesa',
-					"message" => 'Access this link to change your password within 3 hours: ' .
-					APP_ENVIRONMENT['APP']['APP_WWW'] . '/v1/users/change_password?token=' . Auth::encode($options),
-				])) {
+			[
+				"from" => $r->data->name,
+				"to" => APP_ENVIRONMENT["MAIL"]["MAIL_TO"],
+				"subject" => 'New password for Login in Cadtreesa',
+				"message" => 'Access this link to change your password within 3 hours: ' .
+				APP_ENVIRONMENT['APP']['APP_WWW'] . '/v1/users/change_password?token=' . Auth::encode($options),
+			])) {
 				return Response::json(202, m::get('*', 202, 'forgot_password'));
 			}
 

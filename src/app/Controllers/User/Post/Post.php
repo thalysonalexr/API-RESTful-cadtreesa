@@ -23,19 +23,19 @@ use Respect\Rest\Routable;
 
 class Post implements Routable
 {
-	public function post()
+    public function post()
     {
         $data = Json::verify();
         $validate = (object) UserValidator::validate($data);
 
         if ($validate->success) {
-            
+
             $data->password = Password::hash($data->password);
             $data->hash     = hash("sha256", $data->rgacpf + time()); 
             $data->type     = strlen($data->rgacpf) == 12? "STD": "TCR";
             $data->status   = $data->type == "STD"? 1: 0;
             $data->created  = date("Y-m-d H:i:s");
-            
+
             return User::register($data);
         }
         return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);

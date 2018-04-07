@@ -33,7 +33,7 @@ class PostChangePassword implements Routable
 			if ($token) {
 				$data = Json::verify();
 				$validate = (object) PasswordValidator::validate($data);
-			
+
 				if ($validate->success) {
 					$data->password = Password::hash($data->password);
 					return User::changePassword($token->data->id, $data->password);
