@@ -23,7 +23,7 @@ use Respect\Rest\Routable;
 
 class Post implements Routable
 {
-	public function post()
+    public function post()
     {
         $data = Json::verify();
         $validate = (object) TreeValidator::validate($data);

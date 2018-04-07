@@ -21,11 +21,11 @@ class GetAllByUser implements Routable
 {
 	public function get($id)
 	{ 
-        return Tree::findAllByUser(
-            $id, "id",
-            QueryParams::order(["id", "name", "specie", "created"]),
-            QueryParams::pagination(),
-            QueryParams::extends("USERS")
-        );
-    }
+		return Tree::findAllByUser(
+			$id, "id",
+			QueryParams::order(["id", "name", "specie", "created"]),
+			QueryParams::pagination(),
+			QueryParams::extends("USERS")
+		);
+	}
 }

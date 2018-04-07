@@ -24,12 +24,12 @@ class Put implements Routable
 {
 	public function put($id = null)
 	{
-        $data = Json::verify();
-        $validate = (object) TreeValidator::validate($data);
+		$data = Json::verify();
+		$validate = (object) TreeValidator::validate($data);
 
-        if ($validate->success && $id != null)
-            return Tree::alter($data, $id);
+		if ($validate->success && $id != null)
+			return Tree::alter($data, $id);
 
-        return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);        
+		return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);        
     }
 }
