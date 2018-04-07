@@ -5,7 +5,9 @@
  * @author Thalyson Alexandre Rodrigues de Sousa <tha.motog@gmail.com>
  * @link https://github.com/thalysonrodrigues
  *
- * @see https://github.com/thalysonrodrigues/API-REST-Cadtreesa/docs/ap.apib   
+ * @see Documentation
+ * @link https://thalysonrodrigues.github.io/API-RESTful-cadtreesa/
+ * @link https://github.com/thalysonrodrigues/API-RESTful-Cadtreesa/blob/master/docs/api.apib
  */
 
 use Respect\Rest\Router;
