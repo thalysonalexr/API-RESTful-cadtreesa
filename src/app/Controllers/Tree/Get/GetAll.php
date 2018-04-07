@@ -21,10 +21,10 @@ class GetAll implements Routable
 {
 	public function get()
 	{
-        return Tree::findAll(
-            QueryParams::order(["id", "name", "specie", "created"]),
-            QueryParams::pagination(),
-            QueryParams::extends("USERS")
-        );
-    }
+		return Tree::findAll(
+			QueryParams::order(["id", "name", "specie", "created"]),
+			QueryParams::pagination(),
+			QueryParams::extends("USERS")
+		);
+	}
 }
