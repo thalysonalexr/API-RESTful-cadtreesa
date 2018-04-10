@@ -1,22 +1,5 @@
-<RequireAny>
-    Require method DELETE GET POST PUT
-</RequireAny>
-
-<Files *.php>
-    Order Deny,Allow
-    Deny from all
-</Files>
-
-<Files index.php>
-    Order Allow,Deny
-    Allow from all
-</Files>
-
-<IfModule mod_rewrite.c>
-    Options -MultiViews
-
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-    Options -Indexes
-</IfModule>
+RewriteEngine On
+Header set Access-Control-Allow-Origin *
+Require method DELETE GET POST PUT OPTIONS
+RewriteCond ./public/%{REQUEST_FILENAME} !-d
+RewriteRule !(css|js|jpg|png) ./public/index.php
