@@ -24,16 +24,19 @@ class MailValidator extends LogErrors implements ValidatorInterface
 		self::$message = 'Validation failed';
 
 		if (!isset($object->name))
-			self::setError(1, 'name', 'Not configured name field');
+			self::setError(1, 'name', 'Not configured name field (implementation error)');
 
 		if (!isset($object->email))
-			self::setError(1, 'email', 'Not configured email field');
+			self::setError(1, 'email', 'Not configured email field (implementation error)');
 
 		if (!isset($object->subject))
-			self::setError(1, 'subject', 'Not configured subject field');
+			self::setError(1, 'subject', 'Not configured subject field (implementation error)');
 
 		if (!isset($object->message))
-			self::setError(1, 'message', 'Not configured message field');
+			self::setError(1, 'message', 'Not configured message field (implementation error)');
+
+		if (self::$countErrors > 0)
+			return ['success' => false, 'log' => self::getErrors()];
 		
 		if (!v::notEmpty()->validate($object->name))
 			self::setError(2, 'name', 'Name cannot be blank');

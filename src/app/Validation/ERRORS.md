@@ -12,3 +12,5 @@
 	9 - Field type float
 	10 - Field type int
 	11 - Field type enum
+	12 - Email exists
+	13 - RGACPFs exists

@@ -24,7 +24,10 @@ class EmailValidator extends LogErrors implements ValidatorInterface
 		self::$message = 'Validation failed';
 
 		if (!isset($object->email))
-			self::setError(1, 'email', 'Not configured email field');
+			self::setError(1, 'email', 'Not configured email field (implementation error)');
+
+		if (self::$countErrors > 0)
+			return ['success' => false, 'log' => self::getErrors()];
 
 		if (!v::notEmpty()->validate($object->email))
 			self::setError(2, 'email', 'Subject cannot be blank');

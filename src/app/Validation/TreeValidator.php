@@ -23,43 +23,46 @@ class TreeValidator extends LogErrors implements ValidatorInterface
 		self::$message = 'Validation failed';
 
 		if (!isset($object->name))
-			self::setError(1, 'name', 'Not configured name field');
+			self::setError(1, 'name', 'Not configured name field (implementation error)');
 
 		if (!isset($object->specie))
-			self::setError(1, 'specie', 'Not configured specie field');
+			self::setError(1, 'specie', 'Not configured specie field (implementation error)');
 
 		if (!isset($object->family))
-			self::setError(1, 'family', 'Not configured family field');
+			self::setError(1, 'family', 'Not configured family field (implementation error)');
 
 		if (!isset($object->cap))
-			self::setError(1, 'cap', 'Not configured cap field');
+			self::setError(1, 'cap', 'Not configured cap field (implementation error)');
 
 		if (!isset($object->height))
-			self::setError(1, 'height', 'Not configured height field');
+			self::setError(1, 'height', 'Not configured height field (implementation error)');
 
 		if (!isset($object->classcup))
-			self::setError(1, 'classcup', 'Not configured classcup field');
+			self::setError(1, 'classcup', 'Not configured classcup field (implementation error)');
 
 		if (!isset($object->sanity))
-			self::setError(1, 'sanity', 'Not configured sanity field');
+			self::setError(1, 'sanity', 'Not configured sanity field (implementation error)');
 
 		if (!isset($object->growth))
-			self::setError(1, 'growth', 'Not configured growth field');
+			self::setError(1, 'growth', 'Not configured growth field (implementation error)');
 
 		if (!isset($object->sociological))
-			self::setError(1, 'sociological', 'Not configured sociological field');
+			self::setError(1, 'sociological', 'Not configured sociological field (implementation error)');
 
 		if (!isset($object->utilization))
-			self::setError(1, 'utilization', 'Not configured utilization field');
+			self::setError(1, 'utilization', 'Not configured utilization field (implementation error)');
 
 		if (!isset($object->features))
-			self::setError(1, 'features', 'Not configured features field');
+			self::setError(1, 'features', 'Not configured features field (implementation error)');
 
 		if (!isset($object->latitude))
-			self::setError(1, 'latitude', 'Not configured latitude field');
+			self::setError(1, 'latitude', 'Not configured latitude field (implementation error)');
 
 		if (!isset($object->longitude))
-			self::setError(1, 'longitude', 'Not configured longitude field');
+			self::setError(1, 'longitude', 'Not configured longitude field (implementation error)');
+
+		if (self::$countErrors > 0)
+			return ['success' => false, 'log' => self::getErrors()];
 
 		if (!v::stringType()->validate($object->name))
 			self::setError(4, 'name', 'This field require type string');

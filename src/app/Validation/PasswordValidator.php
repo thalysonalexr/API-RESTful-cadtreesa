@@ -24,7 +24,10 @@ class PasswordValidator extends LogErrors implements ValidatorInterface
 		self::$message = 'Validation failed';
 
 		if (!isset($object->password))
-			self::setError(1, 'password', 'Not configured password field');
+			self::setError(1, 'password', 'Not configured password field (implementation error)');
+
+		if (self::$countErrors > 0)
+			return ['success' => false, 'log' => self::getErrors()];
 
 		if (!v::notEmpty()->validate($object->password))
 			self::setError(2, 'password', 'Message cannot be blank');

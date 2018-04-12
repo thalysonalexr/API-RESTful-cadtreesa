@@ -13,6 +13,7 @@ namespace Cadtreesa\Validation;
 
 
 use Cadtreesa\Validation\LogErrors;
+use Cadtreesa\classes\Database;
 use Respect\Validation\Validator as v;
 
 
@@ -24,16 +25,19 @@ class UserValidator extends LogErrors implements ValidatorInterface
 		self::$message = 'Validation failed';
 
 		if (!isset($object->name))
-			self::setError(1, 'name', 'Not configured name field');
+			self::setError(1, 'name', 'Not configured name field (implementation error)');
 
 		if (!isset($object->rgacpf))
-			self::setError(1, 'rgacpf', 'Not configured rgacpf field');
+			self::setError(1, 'rgacpf', 'Not configured rgacpf field (implementation error)');
 
 		if (!isset($object->email))
-			self::setError(1, 'email', 'Not configured email field');
+			self::setError(1, 'email', 'Not configured email field (implementation error)');
 
 		if (!isset($object->password))
-			self::setError(1, 'password', 'Not configured password field');
+			self::setError(1, 'password', 'Not configured password field (implementation error)');
+
+		if (self::$countErrors > 0)
+			return ['success' => false, 'log' => self::getErrors()];
 
 		if (!v::notEmpty()->validate($object->name))
 			self::setError(2, 'name', 'Name cannot be blank');
@@ -68,6 +72,14 @@ class UserValidator extends LogErrors implements ValidatorInterface
 		} else {
 			self::setError(8, 'rgacpf', 'This field require RGA or CPF');
 		}
+
+		// Fields Unique Keys | rgacpf | email
+
+		if (Database::find('USERS', 'rgacpf', $object->rgacpf)->data)
+			self::setError(12, 'rgacpf', 'The rgacpf field is already registered');
+
+		if (Database::find('USERS', 'email', $object->email)->data)
+			self::setError(13, 'email', 'The email field is already registered');
 
 		return self::$countErrors > 0? ['success' => false, 'log' => self::getErrors()]: ['success' => true];
     }
