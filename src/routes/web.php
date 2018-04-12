@@ -117,7 +117,7 @@ $route->any('/*', function () {
 });
 
 $route->exceptionRoute('IvalidArgumentException', function (InvalidArgumentException $e) {
-	return 'Ops! This route is not enable. Please, read documentation in https://github.com/thalysonrodrigues/API-REST-Cadtreesa/docs/api.apib';
+	return 'Ops! This route is not enable. Please, read documentation in https://thalysonrodrigues.github.io/API-RESTful-cadtreesa/';
 });
 
 $route->errorRoute(function (array $err) {
