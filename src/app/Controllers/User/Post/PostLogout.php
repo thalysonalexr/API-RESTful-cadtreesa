@@ -22,12 +22,12 @@ use Respect\Rest\Routable;
 
 class PostLogout implements Routable
 {
-	public function post()
-	{
-		$r = Database::update('LOG', [
-			'signout_dt' => date("Y-m-d H:i:s")
-		], ['id', JWTWrapper::decode(Auth::getAuthorization())->data->id_log]);
+  public function post()
+  {
+    $r = Database::update('LOG', [
+      'signout_dt' => date("Y-m-d H:i:s")
+    ], ['id', JWTWrapper::decode(Auth::getAuthorization())->data->id_log]);
 
-		return $r->success ? Response::json(204, ["id" => $id]): Response::json(500, m::get('put', 500) . $r->error);
-	}
+    return $r->success ? Response::json(204, ["id" => $id]): Response::json(500, m::get('put', 500) . $r->error);
+  }
 }

@@ -23,17 +23,17 @@ use Respect\Rest\Routable;
 
 class Post implements Routable
 {
-    public function post()
-    {
-        $data = Json::verify();
-        $validate = (object) TreeValidator::validate($data);
+  public function post()
+  {
+    $data = Json::verify();
+    $validate = (object) TreeValidator::validate($data);
 
-        if ($validate->success) {
-            $data->created = date("Y-m-d H:i:s");
-            $data->validated = 0;
-            $data->id_user = Auth::decode(Auth::getAuthorization())->data->id;
-            return Tree::register($data);
-        }
-        return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+    if ($validate->success) {
+      $data->created = date("Y-m-d H:i:s");
+      $data->validated = 0;
+      $data->id_user = Auth::decode(Auth::getAuthorization())->data->id;
+      return Tree::register($data);
     }
+    return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+  }
 }

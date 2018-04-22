@@ -24,24 +24,24 @@ use Respect\Rest\Routable;
 
 class PostChangePassword implements Routable
 {
-	public function post()
-	{
-		if (isset($_GET['token']) && !empty($_GET['token'])) {
+  public function post()
+  {
+    if (isset($_GET['token']) && !empty($_GET['token'])) {
 
-			$token = JWTWrapper::decode($_GET['token']);
+      $token = JWTWrapper::decode($_GET['token']);
 
-			if ($token) {
-				$data = Json::verify();
-				$validate = (object) PasswordValidator::validate($data);
+      if ($token) {
+        $data = Json::verify();
+        $validate = (object) PasswordValidator::validate($data);
 
-				if ($validate->success) {
-					$data->password = Password::hash($data->password);
-					return User::changePassword($token->data->id, $data->password);
-				}
-				return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
-			}
-			return Response::json(500, m::get('*', 500, 'error'));
-		}
-		return Response::json(404, m::get('*', 404, 'not_found'));
-	}
+        if ($validate->success) {
+          $data->password = Password::hash($data->password);
+          return User::changePassword($token->data->id, $data->password);
+        }
+        return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+      }
+      return Response::json(401, m::get('*', 401, 'token_invalid'));
+    }
+    return Response::json(401, m::get('*', 401, 'unauthorized'));
+  }
 }

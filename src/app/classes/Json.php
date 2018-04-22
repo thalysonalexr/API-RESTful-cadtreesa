@@ -18,14 +18,14 @@ use Respect\Validation\Validator;
 
 class Json
 {
-	public static function verify()
-	{
-		$data = file_get_contents('php://input');
+  public static function verify()
+  {
+    $data = file_get_contents('php://input');
 
-		if (Validator::json()->validate($data) && isset(apache_request_headers()['Content-Type']) && Validator::equals(apache_request_headers()['Content-Type'])->validate('application/json'))
-			return (object) json_decode($data, true);
+    if (Validator::json()->validate($data) && isset(apache_request_headers()['Content-Type']) && Validator::equals(apache_request_headers()['Content-Type'])->validate('application/json'))
+      return (object) json_decode($data, true);
 
-		echo Response::json(415, m::get('*', 415, 'unsupported_media'));
-		die();
-	}
+    echo Response::json(415, m::get('*', 415, 'unsupported_media'));
+    die();
+  }
 }

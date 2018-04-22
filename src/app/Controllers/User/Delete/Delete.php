@@ -21,11 +21,11 @@ use Cadtreesa\classes\QueryParams;
 
 class Delete implements Routable
 {
-	public function delete($id = null)
-	{
-		if ($id != null)
-			return User::remove($id);
-		
-		return Response::json(400, m::get('*', 400, 'invalid_input'));
-	}
+  public function delete($id = null)
+  {
+    if ($id != null)
+      return User::remove($id);
+
+    return Response::json(400, m::get('*', 400, 'invalid_input'));
+  }
 }

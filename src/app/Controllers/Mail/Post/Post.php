@@ -22,25 +22,24 @@ use Respect\Rest\Routable;
 
 class Post implements Routable
 {
-    public function post()
-    {
-        $data = Json::verify();
-        $validate = (object) MailValidator::validate($data);
-        
-        if ($validate->success) {
+  public function post()
+  {
+    $data = Json::verify();
+    $validate = (object) MailValidator::validate($data);
 
-            if (Mail::send($data->email,
-            [
-                "from"    => $data->name,
-                "to"      => APP_ENVIRONMENT["MAIL"]["MAIL_TO"],
-                "subject" => $data->subject,
-                "message" => $data->message
-            ]))
-                return Response::json(200, m::get('*', 200, 'send_mail'));
-            
-            return Response::json(500, m::get('*', 500, 'error_send'));
-            
-        }
-        return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+    if ($validate->success) {
+
+      if (Mail::send($data->email,
+      [
+        "from"    => $data->name,
+        "to"      => APP_ENVIRONMENT["MAIL"]["MAIL_TO"],
+        "subject" => $data->subject,
+        "message" => $data->message
+      ]))
+        return Response::json(200, m::get('*', 200, 'send_mail'));
+
+      return Response::json(500, m::get('*', 500, 'error_send'));
     }
+    return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+  }
 }

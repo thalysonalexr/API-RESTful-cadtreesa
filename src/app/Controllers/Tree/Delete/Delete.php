@@ -20,11 +20,11 @@ use Respect\Rest\Routable;
 
 class Delete implements Routable
 {
-	public function delete($id = null)
-	{
-		if ($id != null)
-			return Tree::remove($id);
+  public function delete($id = null)
+  {
+    if ($id != null)
+      return Tree::remove($id);
 
-		return Response::json(400, m::get('*', 400, 'invalid_input'));
-	}
+    return Response::json(400, m::get('*', 400, 'invalid_input'));
+  }
 }

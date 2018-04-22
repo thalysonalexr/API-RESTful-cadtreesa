@@ -24,34 +24,34 @@ use Respect\Validation\Validator;
 
 class PostLogin implements Routable
 {
-    public function post()
-    {
-        $data = Json::verify();
-        $validate = (object) LoginValidator::validate($data);
+  public function post()
+  {
+    $data = Json::verify();
+    $validate = (object) LoginValidator::validate($data);
 
-        if ($validate->success) {
+    if ($validate->success) {
 
-            $auth = (object) Login::login($data->email, $data->password);
+      $auth = (object) Login::login($data->email, $data->password);
 
-            if ($auth->auth) {
+      if ($auth->auth) {
 
-                $token = Auth::createToken([
-                    "id"   => $auth->data["id"],
-                    "name" => $auth->data["name"],
-                    "type" => $auth->data["type"],
-                    "hash" => $auth->data["hash"],
-                    "id_log" => $auth->data["id_log"]
-                ]);
+        $token = Auth::createToken([
+          "id"   => $auth->data["id"],
+          "name" => $auth->data["name"],
+          "type" => $auth->data["type"],
+          "hash" => $auth->data["hash"],
+          "id_log" => $auth->data["id_log"]
+        ]);
 
-                Response::Authorization($token);
+        Response::Authorization($token);
 
-                return Response::json(200, "OK", [
-                    "login" => true,
-                    "access_token" => $token
-                ]);
-            }
-            return Response::json(401, m::get('*', 401, 'unauthorized'));
-        }
-        return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+        return Response::json(200, "OK", [
+          "login" => true,
+          "access_token" => $token
+        ]);
+      }
+      return Response::json(401, m::get('*', 401, 'unauthorized'), $auth->data);
     }
+    return Response::json(400, m::get('*', 400, 'invalid_input'), $validate->log);
+  }
 }

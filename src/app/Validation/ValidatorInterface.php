@@ -14,5 +14,5 @@ namespace Cadtreesa\Validation;
 
 interface ValidatorInterface
 {
-	public static function validate(\stdClass $object);
+  public static function validate(\stdClass $object);
 }

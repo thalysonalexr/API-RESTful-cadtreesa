@@ -19,8 +19,8 @@ use Cadtreesa\classes\QueryParams;
 
 class Get implements Routable
 {
-	public function get($id)
-	{
-		return Tree::findOne($id, "id", QueryParams::extends("USERS"));
-	}
+  public function get($id)
+  {
+    return Tree::findOne($id, "id", QueryParams::extends("USERS"));
+  }
 }

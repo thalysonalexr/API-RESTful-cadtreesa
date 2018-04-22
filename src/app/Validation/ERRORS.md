@@ -14,3 +14,9 @@
 	11 - Field type enum
 	12 - Email exists
 	13 - RGACPFs exists
+	14 - Url invalid
+
+## 2 - Not authorized
+
+	1 - User not found
+	2 - Password wrong

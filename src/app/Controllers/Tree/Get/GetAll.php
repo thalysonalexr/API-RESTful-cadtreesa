@@ -19,12 +19,12 @@ use Cadtreesa\classes\QueryParams;
 
 class GetAll implements Routable
 {
-	public function get()
-	{
-		return Tree::findAll(
-			QueryParams::order(["id", "name", "specie", "created"]),
-			QueryParams::pagination(),
-			QueryParams::extends("USERS")
-		);
-	}
+  public function get()
+  {
+    return Tree::findAll(
+      QueryParams::order(["id", "name", "specie", "created"]),
+      QueryParams::pagination(),
+      QueryParams::extends("USERS")
+    );
+  }
 }

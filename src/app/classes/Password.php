@@ -14,32 +14,32 @@ namespace Cadtreesa\classes;
 
 class Password
 {
-	/**
-	 * Encrypts a password with password_hash
-	 *
-	 * @param string $password password
-	 *
-	 * @return string
-	 */
-	public static function hash($password)
-	{
-		$options = [
-			'cost' => 12,
-		];
+  /**
+   * Encrypts a password with password_hash
+   *
+   * @param string $password password
+   *
+   * @return string
+   */
+  public static function hash($password)
+  {
+    $options = [
+      'cost' => 12,
+    ];
 
-		return password_hash($password, PASSWORD_DEFAULT, $options);
-	}
+    return password_hash($password, PASSWORD_DEFAULT, $options);
+  }
 
-	/**
-	 * Verify password with hash generated in password_hash
-	 *
-	 * @param string $password password
-	 * @param string $hash 	   hash
-	 *
-	 * @return string
-	 */
-	public static function verify($password, $hash)
-	{
-		return password_verify($password, $hash);
-	}
+  /**
+   * Verify password with hash generated in password_hash
+   *
+   * @param string $password password
+   * @param string $hash 	   hash
+   *
+   * @return string
+   */
+  public static function verify($password, $hash)
+  {
+    return password_verify($password, $hash);
+  }
 }
