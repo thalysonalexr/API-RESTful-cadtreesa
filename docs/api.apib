@@ -35,7 +35,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 	+ Attributes (LogErrors)
 
 + Response 401 (application/json)
-	+ Attributes (Error)
+	+ Attributes (LogErrors)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -57,6 +57,27 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 		Authorization: Bearer JWT
 
 + Response 204
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/timeout]
+
+### Tempo esgotado na sessão do usuário [POST]
+
++ Request Dar timeout na sessão
+
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Response 204
+
++ Response 401 (application/json)
+	+ Attributes (Error)
 
 + Response 500 (application/json)
 	+ Attributes (Error)
@@ -81,10 +102,13 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 404 (application/json)
 	+ Attributes (Error)
 
++ Response 415 (application/json)
+	+ Attributes (Error)
+
 + Response 500 (application/json)
 	+ Attributes (Error)
 
-## Users [/users/change_password]
+## Users [/users/change_password{?token}]
 
 ### Alterar senha [POST]
 
@@ -95,12 +119,18 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 		Content-Type: application/json
 	+ Attributes (Password)
 
++ Parameters
+	+ token: hdQWdw.dWend33kld.Wdllksad (string, required) - Json Web Token
+
 + Response 204
 
 + Response 400 (application/json)
 	+ Attributes (LogErrors)
 
-+ Response 404 (application/json)
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
 	+ Attributes (Error)
 
 + Response 500 (application/json)
@@ -126,8 +156,13 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 400 (application/json)
 	+ Attributes (LogErrors)
 
++ Response 415 (application/json)
+	+ Attributes (Error)
+
 + Response 500 (application/json)
 	+ Attributes (Error)
+
+## Users [/users{?extends}{&order}{&limit}{&offset}]
 
 ### Listar todos usuários [GET]
 
@@ -137,22 +172,27 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 		Authorization: Bearer JWT
 
 + Parameters
-	+ extends (string, optional)
+	+ extends: users (string, optional)
 		Extender dados na consulta
 		+ Members
 			+ users
-	+ order (enum[string], optional)
+	+ order: id (enum[string], optional)
 		Ordem dos resultados
 		+ Members
 			+ id
 			+ name
 			+ created
-	+ limit (number, optional) - Limite de registros
-	+ offset (number, optional) - Passo do registro. Requer limit
-
+	+ limit: 10 (number, optional) - Limite de registros
+	+ offset: 5 (number, optional) - Passo do registro. Requer limit
 
 + Response 200 (application/json)
 	+ Attributes (MetadataUsers)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -160,7 +200,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
-## Users [/users/{id}/trees]
+## Users [/users/{id}/trees{?extends}{&order}{&limit}{&offset}]
 
 ### Listar árvores por usuário [GET]
 
@@ -170,22 +210,29 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 		Authorization: Bearer JWT
 
 + Parameters
-	+ extends (string, optional)
+	+ id: 1 (number, required)
+	+ extends: users (string, optional)
 		Extender dados na consulta
 		+ Members
 			+ users
-	+ order (enum[string], optional)
+	+ order: name (enum[string], optional)
 		Ordem dos resultados
 		+ Members
 			+ id
 			+ name
 			+ specie
 			+ created
-	+ limit (number, optional) - Limite de registros
-	+ offset (number, optional) - Passo do registro. Requer limit
+	+ limit: 7 (number, optional) - Limite de registros
+	+ offset: 2 (number, optional) - Passo do registro. Requer limit
 
 + Response 200 (application/json)
 	+ Attributes (MetadataTreesByUser)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -193,7 +240,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
-## Users [/users/{id}/trees/{id}]
+## Users [/users/{id_user}/trees/{id_tree}]
 
 ### Listar uma árvore por usuário [GET]
 
@@ -202,8 +249,18 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 
 		Authorization: Bearer JWT
 
++ Parameters
+	+ id_user: 1 (number, required)
+	+ id_tree: 1 (number, required)
+
 + Response 200 (application/json)
 	+ Attributes (MetadataFather)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -211,7 +268,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
-## Users [/users/{id}]
+## Users [/users/{id}{?extends}]
 
 ### Listar usuário [GET]
 
@@ -222,7 +279,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 
 + Parameters
 	+ id: 1 (number, required) - ID do usuário
-	+ extends (string, optional)
+	+ extends: trees (string, optional)
 		Extender dados na consulta
 		+ Members
 			+ trees
@@ -230,11 +287,19 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 200 (application/json)
 	+ Attributes (UsersGet)
 
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
+
 + Response 404 (application/json)
 	+ Attributes (Error)
 
 + Response 500 (application/json)
 	+ Attributes (Error)
+
+## Users [/users/{id}]
 
 ### Editar usuário [PUT]
 
@@ -244,7 +309,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 		Authorization: Bearer JWT
 		Accept: application/json
 		Content-Type: application/json
-	+ Attributes(UsersPost)
+	+ Attributes(UsersPut)
 
 + Parameters
 	+ id: 1 (number, required) - ID do usuário
@@ -255,11 +320,22 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 400 (application/json)
 	+ Attributes (LogErrors)
 
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
+
 + Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
 	+ Attributes (Error)
 
 + Response 500 (application/json)
 	+ Attributes (Error)
+
+## Users [/users/{id}]
 
 ### Remover usuário [DELETE]
 
@@ -275,6 +351,15 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 	+ Headers
 
 		Entity: 1
+
++ Response 400 (application/json)
+	+ Attributes (Error)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -299,14 +384,25 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 
 + Response 201 (application/json)
 	+ Headers
-		Content-Location: /v1/users/1
+		Content-Location: /v1/trees/1
 	+ Attributes (Created)
 
 + Response 400 (application/json)
 	+ Attributes (LogErrors)
 
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
+	+ Attributes (Error)
+
 + Response 500 (application/json)
 	+ Attributes (Error)
+
+## Trees [/trees{?extends}{&order}{&limit}{&offset}]
 
 ### Listar todas as árvores [GET]
 
@@ -316,22 +412,28 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 		Authorization: Bearer JWT
 
 + Parameters
-	+ extends (string, optional)
+	+ extends: users (string, optional)
 		Extender dados na consulta
 		+ Members
 			+ users
-	+ order (enum[string], optional)
+	+ order: specie (enum[string], optional)
 		Ordem dos resultados
 		+ Members
 			+ id
 			+ name
 			+ specie
 			+ created
-	+ limit (number, optional) - Limite de registros
-	+ offset (number, optional) - Passo do registro. Requer limit
+	+ limit: 20 (number, optional) - Limite de registros
+	+ offset: 2 (number, optional) - Passo do registro. Requer limit
 
 + Response 200 (application/json)
 	+ Attributes (MetadataTrees)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -339,7 +441,7 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
-## Trees [/trees/{id}]
+## Trees [/trees/{id}{?extends}]
 
 ### Listar árvore [GET]
 
@@ -361,6 +463,8 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
+## Trees [/trees/{id}]
+
 ### Editar árvore [PUT]
 
 + Request Editar dados de uma árvore
@@ -379,11 +483,22 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 400 (application/json)
 	+ Attributes (LogErrors)
 
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
+
 + Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
 	+ Attributes (Error)
 
 + Response 500 (application/json)
 	+ Attributes (Error)
+
+## Trees [/trees/{id}]
 
 ### Remover árvore [DELETE]
 
@@ -399,6 +514,15 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 	+ Headers
 
 		Entity: 1
+
++ Response 400 (application/json)
+	+ Attributes (Error)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
 
 + Response 404 (application/json)
 	+ Attributes (Error)
@@ -428,6 +552,24 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
+## Group QrCode
+
+## QrCode [/qrcode{?url}]
+
+### Gerar código QR [GET]
+
++ Request Gerar código QR de URL
+
++ Parameters
+	+ url: https://github.com (string, required) - URL a ser codificada
+
++ Response 200 (image/png)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
 
 
 # Data Structures
@@ -438,6 +580,12 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + rgacpf (string) - RGA de matrícula ou CPF caso professor
 + email (string) - Endereço de e-mail válido
 + password (string) - Senha do usuário
+
+## UsersPut (object)
+
++ name (string) - Nome do usuário completo
++ rgacpf (string) - RGA de matrícula ou CPF caso professor
++ email (string) - Endereço de e-mail válido
 
 ## UsersGet (object)
 
