@@ -29,11 +29,13 @@ class Get implements Routable
         \PHPQRCode\QRcode::png($_GET['url'], realpath( __DIR__ ) . "/tmp/qrcode.png", 'L', 10, 1);
 
         $img = imagecreatefrompng(realpath( __DIR__ ) . "/tmp/qrcode.png");
-        Response::ImagePNG();
+
         imagepng($img);
         imagedestroy($img);
-        return Response::json(200, 'OK');
-        
+
+        Response::ImagePNG();
+        Response::json(200, 'OK');
+        return;
       } catch (\Exception $e) {
          Response::json(500, m::get('*', 500, 'create_qr'));
       }

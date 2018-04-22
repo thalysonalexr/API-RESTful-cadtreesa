@@ -14,33 +14,33 @@ namespace Cadtreesa\Validation;
 
 class LogErrors implements \JsonSerializable
 {
-protected static $code;
-protected static $message;
-protected static $errors = [];
-protected static $countErrors = 0;
+  public static $code;
+  public static $message;
+  public static $errors = [];
+  public static $countErrors = 0;
 
-public static function setError($code, $field, $message) {
-self::$errors[] = [
-'code' => $code,
-'field' => $field,
-'message' => $message
-];
-self::$countErrors++;
-}
+  public static function setError($code, $field, $message) {
+    self::$errors[] = [
+      'code' => $code,
+      'field' => $field,
+      'message' => $message
+    ];
+    self::$countErrors++;
+  }
 
-public static function getErrors() {
-return [
-'code' => self::$code,
-'message' => self::$message,
-'errors' => self::$errors
-];
-}
+  public static function getErrors() {
+    return [
+      'code' => self::$code,
+      'message' => self::$message,
+      'errors' => self::$errors
+    ];
+  }
 
-public function jsonSerialize() {
-return [
-'code' => self::$code,
-'message' => self::$message,
-'errors' => self::$errors
-];
-}
+  public function jsonSerialize() {
+    return [
+      'code' => self::$code,
+      'message' => self::$message,
+      'errors' => self::$errors
+    ];
+  }
 }
