@@ -16,6 +16,8 @@ use Cadtreesa\classes\Response;
 use Cadtreesa\classes\Password;
 use Cadtreesa\classes\Json;
 use Cadtreesa\classes\Message as m;
+use Cadtreesa\classes\Database;
+use Cadtreesa\Validation\LogErrors;
 use Cadtreesa\Validation\UserValidator;
 use Cadtreesa\Models\DAO\User;
 use Respect\Rest\Routable;
@@ -28,7 +30,21 @@ class Post implements Routable
     $data = Json::verify();
     $validate = (object) UserValidator::validate($data);
 
-    if ($validate->success) {
+    LogErrors::$code = 1;
+    LogErrors::$message = 'Validation failed';
+
+    // Fields Unique Keys | rgacpf | email
+
+    if (Database::find('USERS', 'rgacpf', $data->rgacpf)->data)
+      LogErrors::setError(12, 'rgacpf', 'The rgacpf field is already registered');
+
+    if (Database::find('USERS', 'email', $data->email)->data)
+      LogErrors::setError(13, 'email', 'The email field is already registered');
+
+    if (LogErrors::$countErrors > 0)
+      $validate->log = array_merge($validate->log, LogErrors::getErrors());
+
+    if ($validate->success && LogErrors::$countErrors <= 0) {
       $data->password = Password::hash($data->password);
       $data->hash     = hash("sha256", $data->rgacpf + time()); 
       $data->type     = strlen($data->rgacpf) == 12? "STD": "TCR";

@@ -13,7 +13,6 @@ namespace Cadtreesa\Validation;
 
 
 use Cadtreesa\Validation\LogErrors;
-use Cadtreesa\classes\Database;
 use Respect\Validation\Validator as v;
 
 
@@ -64,14 +63,6 @@ class UserValidator extends LogErrors implements ValidatorInterface
       self::setError(8, 'rgacpf', 'This field require RGA or CPF');
     }
 
-    // Fields Unique Keys | rgacpf | email
-
-    if (Database::find('USERS', 'rgacpf', $object->rgacpf)->data)
-      self::setError(12, 'rgacpf', 'The rgacpf field is already registered');
-
-    if (Database::find('USERS', 'email', $object->email)->data)
-      self::setError(13, 'email', 'The email field is already registered');
-
-    return self::$countErrors > 0? ['success' => false, 'log' => self::getErrors()]: ['success' => true];
+    return self::$countErrors > 0? ['success' => false, 'log' => self::getErrors()]: ['success' => true, 'log' => []];
   }
 }
