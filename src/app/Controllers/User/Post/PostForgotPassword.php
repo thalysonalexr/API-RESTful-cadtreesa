@@ -59,7 +59,7 @@ class PostForgotPassword implements Routable
         "to" => APP_ENVIRONMENT["MAIL"]["MAIL_TO"],
         "subject" => 'New password for Login in Cadtreesa',
         "message" => 'Access this link to change your password within 3 hours: ' .
-        $data->url_client . '/change_password/' . Auth::encode($options),
+        $data->url . '/change_password/' . Auth::encode($options),
       ])) {
         return Response::json(202, m::get('*', 202, 'forgot_password'));
       }
