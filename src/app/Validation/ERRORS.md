@@ -15,6 +15,8 @@
 	12 - Email exists
 	13 - RGACPFs exists
 	14 - Url invalid
+	15 - Invalid amount
+	16 - Field not found
 
 ## 2 - Not authorized
 

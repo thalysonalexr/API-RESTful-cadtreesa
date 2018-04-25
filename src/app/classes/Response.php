@@ -112,12 +112,17 @@ class Response
 
   public static function Authorization($token)
   {
-    header("Authorization: Bearer " . $token);
+    header('Authorization: Bearer ' . $token);
   }
 
   public static function ImagePNG()
   {
     header('Content-Type: image/png');
+  }
+
+  public static function CustomHeader($name, $value)
+  {
+    header('X-' . $name . ': ' . $value);
   }
 
   public static function json($status=200, $message = null, $data = null)

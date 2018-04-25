@@ -41,7 +41,7 @@ class User extends Database
       Response::ContentLocation(base_url() . "/v1/users/{$r->data}");
       return Response::json(201, m::get('post', 201), ["id" => $r->data]);
     }
-    return Response::json(500, m::get('post', 500) . $r->error);        
+    return Response::json(500, m::get('post', 500) . $r->error);
   }
 
   public static function findOne($id, $where="id", $extends = null)
@@ -156,6 +156,23 @@ class User extends Database
       "name"      => $data->name, 
       "rgacpf"    => $data->rgacpf,
       "email"     => $data->email
+    ], [$where, $id]);
+
+    if ($r->success) {
+      if ($r->data === 1) {
+        return Response::json(200, m::get('put', 200), ["id" => $id]);
+      } elseif ($r->data === 0) {
+        return Response::json(200, m::get('*', 200, 'not_altered'));
+      }
+      return Response::json(404, m::get('get', 404));
+    }
+    return $r->success ? : Response::json(500, m::get('put', 500) . $r->error);
+  }
+
+  public static function alterOne(\stdClass $data, $id, $where="id")
+  {
+    $r = parent::update(self::TABLE, [
+      key((array)$data) => reset($data)
     ], [$where, $id]);
 
     if ($r->success) {

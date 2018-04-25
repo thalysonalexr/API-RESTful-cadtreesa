@@ -136,6 +136,37 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + Response 500 (application/json)
 	+ Attributes (Error)
 
+## Users [/users/check_pass]
+
+### Verificar senha [POST]
+
++ Request Verificar senha de usuário
+
+	+ Headers
+
+		Accept: application/json
+		Content-Type: application/json
+		Authorization: Bearer JWT
+	+ Attributes (Password)
+
++ Response 200 (application/json)
+	+ Attributes (Check)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
 ## Users [/users]
 
 ### Criar usuários [POST]
@@ -294,6 +325,61 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 	+ Attributes (Error)
 
 + Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 500 (application/json)
+	+ Attributes (Error)
+
+## Users [/users/info]
+
+### Obter metadados [HEAD]
+
++ Request Obter metadados da entidade usuários
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Response 204
+	+ Headers
+		X-Total-Count: 56
+
++ Response 401
+
++ Response 403
+
++ Response 500
+
+## Users [/users/{id}]
+
+### Editar usuário [PATCH]
+
++ Request Editar parcialmente os dados de um usuário
+	+ Headers
+		
+		Authorization: Bearer JWT
+		Accept: application/json
+		Content-Type: application/json
+	+ Attributes (Field)
+
++ Parameters
+	+ id: 1 (number, required) - ID do usuário
+
++ Response 200 (application/json)
+	+ Attributes (Id)
+
++ Response 400 (application/json)
+	+ Attributes (LogErrors)
+
++ Response 401 (application/json)
+	+ Attributes (Error)
+
++ Response 403 (application/json)
+	+ Attributes (Error)
+
++ Response 404 (application/json)
+	+ Attributes (Error)
+
++ Response 415 (application/json)
 	+ Attributes (Error)
 
 + Response 500 (application/json)
@@ -462,6 +548,26 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 
 + Response 500 (application/json)
 	+ Attributes (Error)
+
+## Trees [/trees/info]
+
+### Obter metadados [HEAD]
+
++ Request Obter metadados da entidade árvores
+	+ Headers
+
+		Authorization: Bearer JWT
+
++ Response 204
+	+ Headers
+		X-Total-Count: 33
+		X-Total-Count-Validated: 12
+
++ Response 401
+
++ Response 403
+
++ Response 500
 
 ## Trees [/trees/{id}]
 
@@ -729,3 +835,11 @@ API construida com respostas em formato JSON (JavaScript Object Notation) utiliz
 + metadata (object)
 	+ father (string) - link da entidade pai
 + results (TreesGet)
+
+## Check (object)
+
++ check (boolean) - Se coincide com a verificação
+
+## Field (object)
+
++ field (string) - Campo de edição, nome, rgacpf ou email

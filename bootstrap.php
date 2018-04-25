@@ -4,7 +4,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Expose-Headers: Authorization');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, PATCH, DELETE, HEAD');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, Access-Control-Request-Headers');
 header('Accept: application/json');
 

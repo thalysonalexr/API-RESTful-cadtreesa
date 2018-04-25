@@ -21,7 +21,12 @@ $route = new Router;
 
 $route->post('/v1/users/login', \Cadtreesa\Controllers\User\Post\PostLogin::class);
 
-$route->post('/v1/users/logout', \Cadtreesa\Controllers\User\Post\PostLogout::class);
+$route->post('/v1/users/logout', \Cadtreesa\Controllers\User\Post\PostLogout::class)->by(function() {
+  $id = isset($route->request->params[0]) ? $route->request->params[0]: null;
+  Auth::auth(array(
+    'STD' => true, 'TCR' => true, 'CDR' => true
+  ), $id );
+});
 
 $route->post('/v1/users/timeout', \Cadtreesa\Controllers\User\Post\PostTimeout::class);
 
@@ -31,11 +36,18 @@ $route->post('/v1/users/forgot_password', \Cadtreesa\Controllers\User\Post\PostF
 
 $route->post('/v1/users/change_password', \Cadtreesa\Controllers\User\Post\PostChangePassword::class);
 
+$route->post('/v1/users/check_pass', \Cadtreesa\Controllers\User\Post\PostCheckPass::class)->by(function() use ($route) {
+  $id = isset($route->request->params[0]) ? $route->request->params[0]: null;
+  Auth::auth(array(
+    'STD' => true, 'TCR' => true, 'CDR' => true
+  ), $id );
+});
+
 $route->get('/v1/users/*', \Cadtreesa\Controllers\User\Get\Get::class)->by(function() use ($route) {
   $id = isset($route->request->params[0]) ? $route->request->params[0]: null;
   Auth::auth(array(
     'STD' => true, 'TCR' => false, 'CDR' => false
-  ), $id); 
+  ), $id );
 });
 
 $route->get('/v1/users', \Cadtreesa\Controllers\User\Get\GetAll::class)->by(function() {
@@ -50,10 +62,24 @@ $route->get('/v1/users/*/trees/*', \Cadtreesa\Controllers\Tree\Get\GetOneByUser:
   ));
 });
 
-$route->get('/v1/users/*/trees', \Cadtreesa\Controllers\Tree\Get\GetAllByUser::class)->by(function() {
+$route->get('/v1/users/*/trees', \Cadtreesa\Controllers\Tree\Get\GetAllByUser::class)->by(function() use ($route) {
+  $id = isset($route->request->params[0]) ? $route->request->params[0]: null;
+  Auth::auth(array(
+    'STD' => true, 'TCR' => false, 'CDR' => false
+  ), $id );
+});
+
+$route->head('/v1/users/info', \Cadtreesa\Controllers\User\Head\Head::class)->by(function() {
   Auth::auth(array(
     'TCR' => false, 'CDR' => false
   ));
+});
+
+$route->patch('/v1/users/*', \Cadtreesa\Controllers\User\Patch\Patch::class)->by(function() use ($route) {
+  $id = isset($route->request->params[0]) ? $route->request->params[0]: null;
+  Auth::auth(array(
+    'STD' => true, 'TCR' => true, 'CDR' => true
+  ), $id );
 });
 
 $route->put('/v1/users/*', \Cadtreesa\Controllers\User\Put\Put::class)->by(function() use ($route) {
@@ -66,7 +92,7 @@ $route->put('/v1/users/*', \Cadtreesa\Controllers\User\Put\Put::class)->by(funct
 $route->delete('/v1/users/*', \Cadtreesa\Controllers\User\Delete\Delete::class)->by(function() use ($route) {
   $id = isset($route->request->params[0]) ? $route->request->params[0]: null;
   Auth::auth(array(
-    'STD' => true, 'TCR' => true, 'CDR' -> true
+    'STD' => true, 'TCR' => true, 'CDR' => true
   ), $id );
 });
 
@@ -79,6 +105,12 @@ $route->post('/v1/trees', \Cadtreesa\Controllers\Tree\Post\Post::class)->by(func
 });
 
 $route->get('/v1/trees', \Cadtreesa\Controllers\Tree\Get\GetAll::class)->by(function() {
+  Auth::auth(array(
+    'TCR' => false, 'CDR' => false
+  ));
+});
+
+$route->head('/v1/trees/info', \Cadtreesa\Controllers\Tree\Head\Head::class)->by(function() {
   Auth::auth(array(
     'TCR' => false, 'CDR' => false
   ));
@@ -124,6 +156,6 @@ $route->exceptionRoute('IvalidArgumentException', function (InvalidArgumentExcep
   return 'Ops! This route is not enable. Please, read documentation in https://thalysonrodrigues.github.io/API-RESTful-cadtreesa/';
 });
 
-$route->errorRoute(function (array $err) {
-  return 'Sorry, this errors happened.' . var_dump($err);
-});
+// $route->errorRoute(function (array $err) {
+//   // return 'Sorry, this errors happened.' . var_dump($err);
+// });

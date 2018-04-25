@@ -1,5 +1,5 @@
 RewriteEngine On
 Header set Access-Control-Allow-Origin *
-Require method DELETE GET POST PUT OPTIONS
+Require method DELETE GET POST PUT PATCH OPTIONS HEAD
 RewriteCond ./public/%{REQUEST_FILENAME} !-d
 RewriteRule !(css|js|jpg|png) ./public/index.php
