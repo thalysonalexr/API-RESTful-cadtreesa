@@ -1,9 +1,9 @@
 # API-RESTful-Cadtreesa
 
-☁ Web service for the cadreesa project. Serving the website and android application ☕
+Service for the cadreesa project. Serving the website and android application ☕
 
-[![GitHub version](https://badge.fury.io/gh/thalysonrodrigues%2FAPI-RESTful-cadtreesa.svg)](https://badge.fury.io/gh/thalysonrodrigues%2FAPI-RESTful-cadtreesa)
-[![Software License](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/thalysonrodrigues/API-RESTful-cadtreesa/blob/master/LICENSE)
+[![Release version](https://img.shields.io/github/v/release/thalysonalexr/API-RESTful-cadtreesa?label=version&style=flat-square)](https://img.shields.io/github/v/release/thalysonalexr/API-RESTful-cadtreesa?label=version&style=flat-square)
+[![License](https://img.shields.io/github/license/thalysonalexr/API-RESTful-cadtreesa?color=blue&style=flat-square)](https://img.shields.io/github/license/thalysonalexr/API-RESTful-cadtreesa?color=blue&style=flat-square)
 
 ## Introduction to API-RESTful-Cadtreesa
 
@@ -13,9 +13,9 @@ This project was developed for the purpose of studying API's [REST](https://en.w
 
 We used the documentation standard of the [API Blueprint](https://apiblueprint.org/). See the documentation for this API with Github Pages rendered with [Aglio](https://github.com/danielgtaylor/aglio):
 
-### [Documentation in Github Pages](https://thalysonrodrigues.github.io/API-RESTful-cadtreesa/)
+### [Documentation in Github Pages](https://thalysonalexr.github.io/API-RESTful-cadtreesa/)
 
-### [Documentation in Markdown apiblueprint.org](https://github.com/thalysonrodrigues/API-RESTful-Cadtreesa/blob/master/docs/api.apib)
+### [Documentation in Markdown apiblueprint.org](https://github.com/thalysonalexr/API-RESTful-Cadtreesa/blob/master/docs/api.apib)
 
 ## About Cadtreesa Project
 
@@ -25,9 +25,9 @@ The Cadtreesa project was proposed during the discipline of Programming Language
 
 Register and validate trees by means of an Android application being the target public the students of the course of Agricultural and Environmental Engineering.
 
-### Solution proposed by project members ([Me](https://github.com/thalysonrodrigues), Rodrigo Oliveira e Nicolas Tiago).
+### Solution proposed by project members ([Me](https://github.com/thalysonalexr), Rodrigo Oliveira e Nicolas Tiago).
 
-Registration of trees by students, teachers and coordinator. Once the tree has been registered by a user, it must be validated by a teacher or coordinator. Once validated the tree can have its information available on a web page that will be accessed from QR Codes generated at the time of registering the tree. These codes contain the address of the page with the tree information. Get to know the [project page](https://github.com/thalysonrodrigues/cadtreesa). 
+Registration of trees by students, teachers and coordinator. Once the tree has been registered by a user, it must be validated by a teacher or coordinator. Once validated the tree can have its information available on a web page that will be accessed from QR Codes generated at the time of registering the tree. These codes contain the address of the page with the tree information. Get to know the [project page](https://github.com/thalysonalexr/cadtreesa). 
 
 ### Entities and operations
 
@@ -36,12 +36,12 @@ Registration of trees by students, teachers and coordinator. Once the tree has b
 
 ## Relational schema
 
-The relational schema of the project (updated for this study) can be seen here: [Cadtreesa_db](https://github.com/thalysonrodrigues/API-RESTful-Cadtreesa/blob/master/database/db_cadtreesa.png)
+The relational schema of the project (updated for this study) can be seen here: [Cadtreesa_db](https://github.com/thalysonalexr/API-RESTful-Cadtreesa/blob/master/database/db_cadtreesa.png)
 
 ## Installation
 
 ```bash
-$ git clone https://github.com/thalysonrodrigues/API-RESTful-cadtreesa.git
+$ git clone https://github.com/thalysonalexr/API-RESTful-cadtreesa.git
 ```
 
 ## Dependencies
@@ -75,8 +75,8 @@ $ php -S localhost:4000 -t public
 
 ## Credits
 
-- [Thalyson Alexandre Rodrigues de Sousa](https://github.com/thalysonrodrigues)
+- [Thalyson Alexandre Rodrigues de Sousa](https://github.com/thalysonalexr)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/thalysonrodrigues/API-RESTful-cadtreesa/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/thalysonalexr/API-RESTful-cadtreesa/blob/master/LICENSE) for more information.
